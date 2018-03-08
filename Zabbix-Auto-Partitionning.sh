@@ -2,7 +2,7 @@
 
 # Bootstrap.sql et documentation sur https://github.com/cavaliercoder/zabbix-pgsql-partitioning
 #
-# Christophe TRIOMPHE 2018 @ AxelIT
+# Christophe TRIOMPHE 2018
 # Prerequis PSQL Server:
 ## - Procedure testée et validée pour PostgreSQL 9.6
 ## - Un Acces Trust pour zabbix en local
