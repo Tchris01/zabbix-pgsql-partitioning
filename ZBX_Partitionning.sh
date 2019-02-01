@@ -4,20 +4,23 @@
 #
 # Christophe TRIOMPHE 2018
 # Prerequis PSQL Server:
-## - Procedure testée et validée pour PostgreSQL 9.6
+## - Procedure testÃ©e et validÃ©e pour PostgreSQL 9.6
 ## - Un Acces Trust pour zabbix en local
-## - Le Partitionnement de base n'est pas supporté par Zabbix SIA
+## - Le Partitionnement de base n'est pas supportÃ© par Zabbix SIA
 # Crontab -e
 ## 0 0 * * * $HOME/.profile; /etc/zabbix/bin/ZBX_Partitionning.sh
 ## @reboot sleep 10; $HOME/.profile; /etc/zabbix/bin/ZBX_Partitionning.sh
 
 
 # Initialisation des variables
-HISTORYDAY=7
+HISTORYDAY=90
 TRENDDAY=365
-PSQLSERVER="1.2.3.4"
-DATABASECREATE="-h $PSQLSERVER -U zabbix -d zabbix"
-DATABASEDROP="-h $PSQLSERVER -U zabbix -d zabbix"
+PSQLSERVER="127.0.0.1"
+ZBXUSER="zabbix"
+ZBXDB="zabbix"
+DATABASECREATE="-h $PSQLSERVER -U $ZBXUSER -d $ZBXDB"
+DATABASEDROP="-h $PSQLSERVER -U $ZBXUSER -d $ZBXDB"
+
 
 # Procedure de calcul des delai de purge
 calc-time()
