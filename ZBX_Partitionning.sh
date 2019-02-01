@@ -4,9 +4,9 @@
 #
 # Christophe TRIOMPHE 2018
 # Prerequis PSQL Server:
-## - Procedure testÃ©e et validÃ©e pour PostgreSQL 9.6
+## - Procedure testee et validee pour PostgreSQL 9.6
 ## - Un Acces Trust pour zabbix en local
-## - Le Partitionnement de base n'est pas supportÃ© par Zabbix SIA
+## - Le Partitionnement de base n est pas supporte par Zabbix SIA
 # Crontab -e
 ## 0 0 * * * $HOME/.profile; /etc/zabbix/bin/ZBX_Partitionning.sh
 ## @reboot sleep 10; $HOME/.profile; /etc/zabbix/bin/ZBX_Partitionning.sh
