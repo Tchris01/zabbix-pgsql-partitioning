@@ -13,11 +13,18 @@
 
 
 # Initialisation des variables
+#Historique Numerique
 HISTORYDAY=90
-TRENDDAY=365
+
+#Historique Texte
+TRENDDAY=730
+
+#Serveur SQL
 PSQLSERVER="127.0.0.1"
 ZBXUSER="zabbix"
 ZBXDB="zabbix"
+
+#Command PSQL Builder
 DATABASECREATE="-h $PSQLSERVER -U $ZBXUSER -d $ZBXDB"
 DATABASEDROP="-h $PSQLSERVER -U $ZBXUSER -d $ZBXDB"
 
@@ -36,7 +43,7 @@ calc-time()
 # Debug des Dates
 show()
 {
-        # Présentation des valeurs
+        # PrÃ©sentation des valeurs
         echo $(date +%Y-%m-%d -d @$HISTOOLD)
         echo $(date +%Y-%m-%d -d @$TRENDOLD)
 }
@@ -44,7 +51,7 @@ show()
 # Procedure de creation des Tables de partionnements pour 2 jours
 create-tables()
 {
-        # Création des nouvelles tables j+2
+        # CrÃ©ation des nouvelles tables j+2
         /usr/bin/psql -qAtX $DATABASECREATE -c "SELECT zbx_provision_partitions('history', 'day', 2);"
         /usr/bin/psql -qAtX $DATABASECREATE -c "SELECT zbx_provision_partitions('history_uint', 'day', 2);"
         /usr/bin/psql -qAtX $DATABASECREATE -c "SELECT zbx_provision_partitions('history_log', 'day', 2);"
@@ -59,8 +66,8 @@ purge-tables()
         # Purge des tables obsolete
         /usr/bin/psql -qAtX $DATABASEDROP -c "SELECT zbx_drop_old_partitions('history', '$(date +%Y-%m-%d -d @$HISTOOLD)'::TIMESTAMP);"
         /usr/bin/psql -qAtX $DATABASEDROP -c "SELECT zbx_drop_old_partitions('history_uint', '$(date +%Y-%m-%d -d @$HISTOOLD)'::TIMESTAMP);"
-        /usr/bin/psql -qAtX $DATABASEDROP -c "SELECT zbx_drop_old_partitions('history_log', '$(date +%Y-%m-%d -d @$HISTOOLD)'::TIMESTAMP);"
-        /usr/bin/psql -qAtX $DATABASEDROP -c "SELECT zbx_drop_old_partitions('history_text', '$(date +%Y-%m-%d -d @$HISTOOLD)'::TIMESTAMP);"
+        /usr/bin/psql -qAtX $DATABASEDROP -c "SELECT zbx_drop_old_partitions('history_log', '$(date +%Y-%m-%d -d @$TRENDOLD)'::TIMESTAMP);"
+        /usr/bin/psql -qAtX $DATABASEDROP -c "SELECT zbx_drop_old_partitions('history_text', '$(date +%Y-%m-%d -d @$TRENDOLD)'::TIMESTAMP);"
         /usr/bin/psql -qAtX $DATABASEDROP -c "SELECT zbx_drop_old_partitions('trends', '$(date +%Y-%m-%d -d @$TRENDOLD)'::TIMESTAMP);"
         /usr/bin/psql -qAtX $DATABASEDROP -c "SELECT zbx_drop_old_partitions('trends_uint', '$(date +%Y-%m-%d -d @$TRENDOLD)'::TIMESTAMP);"
 }
