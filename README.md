@@ -1,6 +1,6 @@
 # Zabbix PostgreSQL scripts
 
-Scripts for partitioning the Zabbix database on PostgreSQL.
+Scripts for partitioning the Zabbix database on PostgreSQL 9.6.
 
 __WARNINGS:__
 
@@ -19,6 +19,8 @@ preventing partition size from exceeding total physical RAM.
 
 Please read all code and comments in the scripts before running on a production
 dataset.
+
+### Running on Zabbix 4.0.5 ###
 
 ### Repair `c_event_recovery_1` on Zabbix 3.2+
 
